@@ -27,15 +27,15 @@ module Webrat
         end
 
         def pid_file
-          prepare_pid_file("#{::Rails.root}/tmp/pids", "mongrel_selenium.pid")
+          prepare_pid_file("#{::Rails.root}/tmp/pids", "thin_selenium.pid")
         end
 
         def start_command
-          "mongrel_rails start -d --chdir='#{::Rails.root}' --port=#{Webrat.configuration.application_port} --environment=#{Webrat.configuration.application_environment} --pid #{pid_file} &"
+          "thin start -d --chdir='#{::Rails.root}' --port=#{Webrat.configuration.application_port} --environment=#{Webrat.configuration.application_environment} --pid #{pid_file} &"
         end
 
         def stop_command
-          "mongrel_rails stop -c #{::Rails.root} --pid #{pid_file}"
+          "thin stop -c #{::Rails.root} --pid #{pid_file}"
         end
 
       end

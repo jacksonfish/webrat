@@ -351,9 +351,9 @@ module Webrat
       case Webrat.configuration.mode
       when :rails
         if content_type
-          ActionController::TestUploadedFile.new(@original_value, content_type)
+          Rack::Test::UploadedFile.new(@original_value, content_type)
         else
-          ActionController::TestUploadedFile.new(@original_value)
+          Rack::Test::UploadedFile.new(@original_value)
         end
       when :rack, :merb
         Rack::Test::UploadedFile.new(@original_value, content_type)

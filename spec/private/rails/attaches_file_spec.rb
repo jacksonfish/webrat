@@ -5,7 +5,7 @@ describe "attach_file" do
     Webrat.configuration.mode = :rails
     @filename = __FILE__
     @uploaded_file = mock("uploaded file")
-    ActionController::TestUploadedFile.stub!(:new => @uploaded_file)
+    Rack::Test::UploadedFile.stub!(:new => @uploaded_file)
   end
 
   it "should fail if no file field found" do
@@ -74,7 +74,7 @@ describe "attach_file" do
       </form>
       </html>
     HTML
-    ActionController::TestUploadedFile.should_receive(:new).with(@filename, "image/png").any_number_of_times
+    Rack::Test::UploadedFile.should_receive(:new).with(@filename, "image/png").any_number_of_times
     attach_file "Picture", @filename, "image/png"
     click_button
   end
