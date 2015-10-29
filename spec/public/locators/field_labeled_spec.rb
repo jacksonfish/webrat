@@ -15,7 +15,7 @@ describe "field_labeled" do
     end
 
     def should_return_a type, opts
-      it "should return a textfield" do
+      it "should return a #{type.name}" do
         field_labeled(opts[:for]).should be_an_instance_of(type)
       end
     end
@@ -56,6 +56,21 @@ describe "field_labeled" do
     HTML
 
     should_return_a Webrat::TextField, :for => "The Label"
+    with_an_id_of  "element_42",       :for => "The Label"
+    should_raise_error_matching /Could not find .* "Other Label"/, :for => "Other Label"
+  end
+
+  describe "finding an email field" do
+    using_this_html <<-HTML
+      <html>
+      <form>
+      <label for="element_42">The Label</label>
+      <input type="email" id="element_42">
+      </form>
+      </html>
+    HTML
+
+    should_return_a Webrat::EmailField, :for => "The Label"
     with_an_id_of  "element_42",       :for => "The Label"
     should_raise_error_matching /Could not find .* "Other Label"/, :for => "Other Label"
   end

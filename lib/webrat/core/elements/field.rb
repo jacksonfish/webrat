@@ -49,6 +49,7 @@ module Webrat
       else
         case element["type"]
         when "checkbox" then CheckboxField
+        when "email"    then EmailField
         when "hidden"   then HiddenField
         when "radio"    then RadioField
         when "password" then PasswordField
@@ -365,6 +366,12 @@ module Webrat
   class TextField < Field #:nodoc:
     def self.xpath_search
       [".//input[@type = 'text']", ".//input[not(@type)]"]
+    end
+  end
+
+  class EmailField < Field #:nodoc:
+    def self.xpath_search
+      [".//input[@type = 'email']", ".//input[not(@type)]"]
     end
   end
 

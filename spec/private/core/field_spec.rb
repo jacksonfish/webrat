@@ -80,4 +80,20 @@ module Webrat
       text_field.to_query_string.should == 'email=user@example.com'
     end
   end
+
+  describe EmailField do
+    it 'should not escape values in mechanize mode' do
+      Webrat.configuration.mode = :mechanize
+
+      html = <<-HTML
+        <html>
+          <input type="email" name="email" value="user@example.com" />
+        </html>
+      HTML
+
+      element    = Webrat::XML.document(html).css('input').first
+      text_field = EmailField.new(nil, element)
+      text_field.to_query_string.should == 'email=user@example.com'
+    end
+  end
 end

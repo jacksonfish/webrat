@@ -48,7 +48,7 @@ module Webrat
     # <tt>field</tt> can be either the value of a name attribute (i.e. <tt>user[email]</tt>)
     # or the text inside a <tt><label></tt> element that points at the <tt><input></tt> field.
     def fill_in(field_locator, options = {})
-      field = locate_field(field_locator, TextField, TextareaField, PasswordField)
+      field = locate_field(field_locator, TextField, EmailField, TextareaField, PasswordField)
       field.raise_error_if_disabled
       field.set(options[:with])
     end
